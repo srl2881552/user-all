@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.play.user.impl.mapper.CommentMapper" >
+  <resultMap id="BaseResultMap" type="org.play.user.impl.entity.Comment" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR"/>
+    <result column="video_id" property="videoId" jdbcType="VARCHAR"/>
+    <result column="title" property="title" jdbcType="VARCHAR"/>
+    <result column="content" property="content" jdbcType="VARCHAR"/>
+    <result column="create_at" property="createAt" jdbcType="TIMESTAMP"/>
+    <result column="status" property="status" jdbcType="INTEGER"/>
+  </resultMap>
+  
+  
+ 
+  
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select * from comment
+  </select>
+  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select * from comment where id=#{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectListPage" resultMap="BaseResultMap" >
+    select * from comment
+    where 1=1
+		<if test="parameter.videoId != null and parameter.videoId != '' ">
+    	and video_id =#{parameter.videoId}
+    </if>
+		order by create_at desc
+  </select>
+  <insert id="insert" parameterType="org.play.user.impl.entity.Comment" >
+  	insert into comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="nickName != null" >
+        nick_name,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+     
+      <if test="videoId != null" >
+        video_id,
+      </if>
+      
+      <if test="title != null" >
+        title,
+      </if>
+     
+      <if test="content != null" >
+        content,
+      </if>
+      
+      <if test="status != null" >
+        status,
+      </if>
+       <if test="createAt != null" >
+        create_at,
+      </if>
+       
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+     <if test="id != null" >
+       #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null" >
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="videoId != null" >
+        #{videoId,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+       <if test="createAt != null" >
+        #{createAt,jdbcType=TIMESTAMP},
+      </if>
+      
+    </trim>
+  </insert>
+  <update id="update" parameterType="org.play.user.impl.entity.Comment" >
+    update comment
+    <set >
+     
+      <if test="nickName != null" >
+        nick_name=#{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id=#{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="videoId != null" >
+        video_id=#{videoId,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title=#{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+       content=#{content,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status=#{status,jdbcType=INTEGER},
+      </if>
+       <if test="createAt != null" >
+       create_at=#{createAt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <delete id="delete" parameterType="java.lang.String" >
+    delete from comment
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <select id="selectCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+  	select count(1) from comment where video_id=#{videoId}
+  </select>
+</mapper>

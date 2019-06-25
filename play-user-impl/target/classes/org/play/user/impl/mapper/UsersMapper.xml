@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.play.user.impl.mapper.UsersMapper" >
+  <resultMap id="BaseResultMap" type="org.play.user.impl.entity.Users" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+	<result column="login" property="login" jdbcType="VARCHAR" />
+	<result column="email" property="email" jdbcType="VARCHAR" />
+	<result column="password" property="password" jdbcType="VARCHAR" />
+	<result column="status" property="status" jdbcType="INTEGER" />
+	<result column="create_at" property="createAt" jdbcType="TIMESTAMP" />
+	<result column="top_image" property="topImage" jdbcType="VARCHAR" />
+	<result column="image_name" property="imageName" jdbcType="VARCHAR" />
+	<result column="address" property="address" jdbcType="VARCHAR" />
+	<result column="province" property="province" jdbcType="VARCHAR" />
+	<result column="city" property="city" jdbcType="VARCHAR" />
+	<result column="id_card" property="idCard" jdbcType="VARCHAR" />
+	<result column="level_id" property="levelId" jdbcType="VARCHAR" />
+	<result column="birthday" property="birthday" jdbcType="TIMESTAMP" />
+	<result column="user_type" property="userType" jdbcType="INTEGER" />
+	<result column="card_image" property="cardImage" jdbcType="VARCHAR" />
+	<result column="crad_image_name" property="cradImageName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  
+ 
+  
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select * from users
+  </select>
+  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select * from users where id=#{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectListPage" resultMap="BaseResultMap" >
+    select * from users
+    where 1=1
+		
+		order by create_at desc
+  </select>
+  <insert id="insert" parameterType="org.play.user.impl.entity.Users" >
+  	insert into users
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="nickName != null" >
+        nick_name,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="login != null" >
+        login,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createAt != null" >
+        create_at,
+      </if>
+      <if test="topImage != null" >
+        top_image,
+      </if>
+      <if test="imageName != null" >
+        image_name,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="idCard != null" >
+        id_card,
+      </if>
+      <if test="levelId != null" >
+        level_id,
+      </if>
+      <if test="birthday != null" >
+        birthday,
+      </if>
+      <if test="userType != null" >
+        user_type,
+      </if>
+      <if test="cardImage != null" >
+        card_image,
+      </if>
+      <if test="cradImageName != null" >
+        crad_image_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+     <if test="id != null" >
+       #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null" >
+       #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+       #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="login != null" >
+       #{login,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+       #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+       #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+       #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createAt != null" >
+       #{createAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="topImage != null" >
+       #{topImage,jdbcType=VARCHAR},
+      </if>
+      <if test="imageName != null" >
+       #{imageName,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+       #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+       #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+       #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null" >
+       #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="levelId != null" >
+       #{levelId,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+       #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userType != null" >
+       #{userType,jdbcType=INTEGER},
+      </if>
+      <if test="cardImage != null" >
+       #{cardImage,jdbcType=VARCHAR},
+      </if>
+      <if test="cradImageName != null" >
+       #{cradImageName,jdbcType=VARCHAR},
+      </if>
+      
+    </trim>
+  </insert>
+  <update id="update" parameterType="org.play.user.impl.entity.Users" >
+    update users
+    <set >
+    
+      
+      <if test="nickName != null" >
+       nick_name=#{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+       mobile=#{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="login != null" >
+       login=#{login,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+       email=#{email,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+       password=#{password,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+       status=#{status,jdbcType=INTEGER},
+      </if>
+      <if test="createAt != null" >
+       create_at=#{createAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="topImage != null" >
+       top_image=#{topImage,jdbcType=VARCHAR},
+      </if>
+      <if test="imageName != null" >
+      image_name= #{imageName,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+       address=#{address,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+       province=#{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+       city=#{city,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null" >
+       id_card=#{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="levelId != null" >
+       level_id=#{levelId,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+       birthday=#{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userType != null" >
+       user_type=#{userType,jdbcType=INTEGER},
+      </if>
+      <if test="cardImage != null" >
+       card_image=#{cardImage,jdbcType=VARCHAR},
+      </if>
+      <if test="cradImageName != null" >
+       crad_image_name=#{cradImageName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <delete id="delete" parameterType="java.lang.String" >
+    delete from users
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <select id="findUserByLogin" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	select * from users where login=#{login,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="login" parameterType="java.util.Map" resultMap="BaseResultMap">
+  	select * from users where login=#{login,jdbcType=VARCHAR} and password=#{password,jdbcType=VARCHAR}
+  </select>
+</mapper>

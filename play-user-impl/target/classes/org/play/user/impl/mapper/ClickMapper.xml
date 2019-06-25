@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.play.user.impl.mapper.ClickMapper" >
+  <resultMap id="BaseResultMap" type="org.play.user.impl.entity.Click" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="video_id" property="videoId" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR"/>
+    <result column="create_at" property="createAt" jdbcType="TIMESTAMP"/>
+    
+  </resultMap>
+  <resultMap id="VideoBaseResultMap" type="org.play.user.impl.entity.Video" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="about" property="about" jdbcType="VARCHAR" />
+	<result column="cate_id" property="cateId" jdbcType="VARCHAR" />
+	<result column="cate_name" property="cateName" jdbcType="VARCHAR" />
+	<result column="rtmp" property="rtmp" jdbcType="VARCHAR" />
+	<result column="stream" property="stream" jdbcType="VARCHAR" />
+	<result column="status" property="status" jdbcType="INTEGER" />
+	<result column="message" property="message" jdbcType="VARCHAR" />
+	<result column="create_at" property="createAt" jdbcType="TIMESTAMP" />
+	<result column="top_image" property="topImage" jdbcType="VARCHAR" />
+	<result column="image_name" property="imageName" jdbcType="VARCHAR" />
+	<result column="type" property="type" jdbcType="INTEGER" />
+	<result column="video_length" property="videoLength" jdbcType="VARCHAR" />
+	<result column="tag" property="tag" jdbcType="VARCHAR" />
+  </resultMap>
+  
+ 
+  
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select * from click
+  </select>
+  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select * from click where id=#{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectListPage" resultMap="BaseResultMap" >
+    select * from click
+    where 1=1
+		
+		order by create_at desc
+  </select>
+  <insert id="insert" parameterType="org.play.user.impl.entity.Click" >
+  	insert into click
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+     
+      <if test="videoId != null" >
+        video_id,
+      </if>
+       <if test="createAt != null" >
+        create_at,
+      </if>
+       
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+     <if test="id != null" >
+       #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="videoId != null" >
+        #{videoId,jdbcType=VARCHAR},
+      </if>
+       <if test="createAt != null" >
+        #{createAt,jdbcType=TIMESTAMP},
+      </if>
+      
+    </trim>
+  </insert>
+  <update id="update" parameterType="org.play.user.impl.entity.Click" >
+    update click
+    <set >
+     
+      <if test="userId != null" >
+        user_id=#{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="videoId != null" >
+        video_id=#{videoId,jdbcType=VARCHAR},
+      </if>
+       <if test="createAt != null" >
+        create_at=#{createAt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <delete id="delete" parameterType="java.lang.String" >
+    delete from click
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <select id="selectCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+  	select count(1) from click where user_id=#{userId,jdbcType=VARCHAR} and video_id=#{videoId,jdbcType=VARCHAR}
+  </select>
+  <select id="findMyHistoryListPage" resultMap="VideoBaseResultMap" >
+  	select v.* from click c INNER JOIN video v on c.video_id=v.id where c.user_id=#{parameter.userId,jdbcType=VARCHAR} ORDER BY v.create_at desc
+  </select>
+</mapper>

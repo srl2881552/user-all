@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.play.user.impl.mapper.UserAccountItemMapper" >
+  <resultMap id="BaseResultMap" type="org.play.user.impl.entity.UserAccountItem" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="account_coin" property="accountCoin" jdbcType="BIGINT"/>
+    <result column="coin" property="coin" jdbcType="BIGINT"/>
+    <result column="type" property="type" jdbcType="INTEGER"/>
+    <result column="bill_id" property="billId" jdbcType="VARCHAR"/>
+    <result column="remark" property="remark" jdbcType="VARCHAR"/>
+    <result column="create_at" property="createAt" jdbcType="TIMESTAMP"/>
+    
+  </resultMap>
+  
+  
+ 
+  
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select * from user_account_item
+  </select>
+  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select * from user_account_item where id=#{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectListPage" resultMap="BaseResultMap" >
+    select * from user_account_item
+    where 1=1
+		
+		order by create_at desc
+  </select>
+  <insert id="insert" parameterType="org.play.user.impl.entity.UserAccountItem" >
+  	insert into user_account_item
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+     
+      <if test="accountCoin != null" >
+        account_coin,
+      </if>
+      <if test="coin != null" >
+        coin,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="billId != null" >
+        bill_id,
+      </if>
+       <if test="remark != null" >
+        remark,
+      </if>
+       <if test="createAt != null" >
+        create_at,
+      </if>
+       
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+     <if test="id != null" >
+       #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountCoin != null" >
+        #{accountCoin,jdbcType=BIGINT},
+      </if>
+      <if test="coin != null" >
+         #{coin,jdbcType=BIGINT},
+      </if>
+      <if test="type != null" >
+         #{type,jdbcType=INTEGER},
+      </if>
+      <if test="billId != null" >
+       #{billId,jdbcType=VARCHAR},
+      </if>
+       <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+       <if test="createAt != null" >
+        #{createAt,jdbcType=TIMESTAMP},
+      </if>
+      
+    </trim>
+  </insert>
+  <update id="update" parameterType="org.play.user.impl.entity.UserAccountItem" >
+    update user_account_item
+    <set >
+     
+      <if test="userId != null" >
+        user_id=#{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountCoin != null" >
+        account_coin=#{accountCoin,jdbcType=BIGINT},
+      </if>
+      <if test="coin != null" >
+         coin=#{coin,jdbcType=BIGINT},
+      </if>
+      <if test="type != null" >
+         type=#{type,jdbcType=INTEGER},
+      </if>
+      <if test="billId != null" >
+       bill_id=#{billId,jdbcType=VARCHAR},
+      </if>
+       <if test="remark != null" >
+        remark=#{remark,jdbcType=VARCHAR},
+      </if>
+       <if test="createAt != null" >
+       create_at= #{createAt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <delete id="delete" parameterType="java.lang.String" >
+    delete from user_account_item
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+</mapper>
